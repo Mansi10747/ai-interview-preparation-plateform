@@ -1,4 +1,4 @@
-const pdfParse = require("pdf-parse")
+const pdfParse = require("pdf-parse");
 const { generateInterviewReport, generateResumePdf } = require("../services/ai.service")
 const interviewReportModel = require("../models/interviewReport.model")
 
@@ -23,20 +23,37 @@ async function generateInterViewReportController(req, res) {
             });
         }
 
+
         let resumeText = "";
+
         if (req.file && req.file.buffer) {
             try {
                 console.log("Parsing PDF buffer of size:", req.file.buffer.length);
-                const parsed = await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText();
+
+                const { PDFParse } = require("pdf-parse");
+                const parser = new PDFParse({
+                    data: Uint8Array.from(req.file.buffer)
+                });
+
+                const parsed = await parser.getText();
                 resumeText = parsed.text || "";
-                console.log("Resume parsed successfully! Extracted characters:", resumeText.length);
+
+                await parser.destroy();
+
+                console.log(
+                    "Resume parsed successfully! Extracted characters:",
+                    resumeText.length
+                );
             } catch (pdfErr) {
-                console.warn("PDF parse failed, falling back to text decoding:", pdfErr.message);
-                resumeText = req.file.buffer.toString("utf-8");
+                console.error("PDF parsing failed:", pdfErr);
+                return res.status(400).json({
+                    message: "Unable to read this PDF. Please upload a valid PDF."
+                });
             }
         } else if (req.body.resume && typeof req.body.resume === "string") {
             resumeText = req.body.resume;
         }
+
 
         if (!resumeText.trim() && (!selfDescription || !selfDescription.trim())) {
             return res.status(400).json({
