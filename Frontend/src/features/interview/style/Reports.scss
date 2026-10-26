@@ -1,0 +1,470 @@
+@use "sass:color";
+
+// ── Shared Variables (identical to home.scss & interview.scss) ────────────────
+$bg-page:        #0d1117;
+$bg-card:        #161b22;
+$bg-panel:       #1c2230;
+$bg-input:       #1e2535;
+$border-color:   #2a3348;
+$text-primary:   #e6edf3;
+$text-muted:     #7d8590;
+$accent:         #ff2d78;
+$accent-alt:     #ff6b9d;
+$font-stack:     system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+// Severity palette
+$severity-high:   #ff4d4d;
+$severity-medium: #f5a623;
+$severity-low:    #3fb950;
+
+// ── Page Shell ────────────────────────────────────────────────────────────────
+.reports-page {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $bg-page;
+    color: $text-primary;
+    font-family: $font-stack;
+    padding: 2.5rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.reports-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+}
+
+// ── Header & Navigation ───────────────────────────────────────────────────────
+.reports-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    &__title-block {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin: 0;
+            color: $text-primary;
+            letter-spacing: -0.02em;
+        }
+
+        p {
+            color: $text-muted;
+            font-size: 0.95rem;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: $accent;
+        }
+    }
+}
+
+// ── Nav Buttons ───────────────────────────────────────────────────────────────
+.nav-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: $font-stack;
+    transition: all 0.2s ease;
+
+    &--back {
+        background-color: $bg-card;
+        color: $text-muted;
+        border: 1px solid $border-color;
+
+        &:hover {
+            color: $text-primary;
+            background-color: $bg-panel;
+            border-color: color.adjust($border-color, $lightness: 8%);
+        }
+    }
+
+    &--create {
+        background: linear-gradient(135deg, $accent 0%, color.adjust($accent, $lightness: -10%) 100%);
+        color: #ffffff;
+        border: none;
+        font-weight: 600;
+
+        &:hover {
+            opacity: 0.92;
+            box-shadow: 0 4px 14px rgba(255, 45, 120, 0.35);
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+// ── Badges ────────────────────────────────────────────────────────────────────
+.badge--reports {
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.65rem;
+    border-radius: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background-color: rgba($accent, 0.12);
+    color: $accent;
+    border: 1px solid rgba($accent, 0.25);
+    margin-bottom: 0.25rem;
+}
+
+// ── Reports Grid ──────────────────────────────────────────────────────────────
+.reports-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+    gap: 1.5rem;
+}
+
+// ── Report Card ───────────────────────────────────────────────────────────────
+.report-card {
+    background-color: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.25rem;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+
+    &:hover {
+        transform: translateY(-4px);
+        border-color: $accent;
+        box-shadow: 0 10px 30px rgba(255, 45, 120, 0.18);
+    }
+
+    &__top {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+
+    &__role-icon {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: 0.6rem;
+        background-color: rgba($accent, 0.1);
+        border: 1px solid rgba($accent, 0.25);
+        color: $accent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__heading {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0 0 0.35rem 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    &__date {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        color: $text-muted;
+    }
+
+    // Metric box
+    &__metric {
+        background-color: $bg-panel;
+        border: 1px solid $border-color;
+        border-radius: 0.65rem;
+        padding: 0.85rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .metric-info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .metric-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: $text-muted;
+        }
+
+        .score-display {
+            display: flex;
+            align-items: baseline;
+        }
+
+        .score-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1;
+
+            &--high {
+                color: $severity-low;
+            }
+
+            &--mid {
+                color: $severity-medium;
+            }
+
+            &--low {
+                color: $severity-high;
+            }
+
+            &--none {
+                color: $text-muted;
+            }
+        }
+    }
+
+    // Score Badges
+    .score-badge {
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 0.15rem 0.5rem;
+        border-radius: 0.25rem;
+        width: fit-content;
+        text-transform: capitalize;
+
+        &--high {
+            color: $severity-low;
+            background-color: rgba($severity-low, 0.12);
+            border: 1px solid rgba($severity-low, 0.25);
+        }
+
+        &--mid {
+            color: $severity-medium;
+            background-color: rgba($severity-medium, 0.12);
+            border: 1px solid rgba($severity-medium, 0.25);
+        }
+
+        &--low {
+            color: $severity-high;
+            background-color: rgba($severity-high, 0.12);
+            border: 1px solid rgba($severity-high, 0.25);
+        }
+
+        &--none {
+            color: $text-muted;
+            background-color: rgba($text-muted, 0.1);
+            border: 1px solid rgba($text-muted, 0.2);
+        }
+    }
+
+    // Footer actions
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding-top: 0.25rem;
+    }
+
+    .view-btn {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, $accent 0%, color.adjust($accent, $lightness: -10%) 100%);
+        color: #ffffff;
+        border: none;
+        padding: 0.65rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        font-family: $font-stack;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            opacity: 0.92;
+            box-shadow: 0 4px 14px rgba(255, 45, 120, 0.35);
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+
+    .delete-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+        border: 1px solid $border-color;
+        color: $text-muted;
+        padding: 0.65rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+            border-color: $severity-high;
+            color: $severity-high;
+            background-color: rgba($severity-high, 0.12);
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+}
+
+// ── Empty State ───────────────────────────────────────────────────────────────
+.reports-empty {
+    background-color: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: 1rem;
+    padding: 3.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 600px;
+    margin: 2rem auto;
+
+    .empty-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background-color: $bg-panel;
+        border: 1px solid $border-color;
+        color: $accent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: $text-primary;
+        margin: 0;
+    }
+
+    p {
+        color: $text-muted;
+        font-size: 0.9rem;
+        max-width: 420px;
+        line-height: 1.5;
+        margin: 0;
+    }
+
+    .create-first-btn {
+        margin-top: 0.5rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, $accent 0%, color.adjust($accent, $lightness: -10%) 100%);
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 600;
+        border: none;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-family: $font-stack;
+        transition: all 0.2s ease;
+
+        &:hover {
+            opacity: 0.92;
+            box-shadow: 0 4px 14px rgba(255, 45, 120, 0.35);
+            transform: translateY(-1px);
+        }
+
+        &:active {
+            transform: scale(0.98);
+        }
+    }
+}
+
+// ── Loading State ─────────────────────────────────────────────────────────────
+.reports-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 4rem 1rem;
+    color: $text-muted;
+
+    .spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid $bg-panel;
+        border-top-color: $accent;
+        border-radius: 50%;
+        animation: spin-reports 0.9s linear infinite;
+    }
+
+    p {
+        font-size: 0.9rem;
+        margin: 0;
+    }
+}
+
+@keyframes spin-reports {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
+@media (max-width: 640px) {
+    .reports-header {
+        &__title-block h1 {
+            font-size: 1.75rem;
+        }
+
+        &__nav {
+            justify-content: center;
+        }
+    }
+
+    .reports-grid {
+        grid-template-columns: 1fr;
+    }
+}

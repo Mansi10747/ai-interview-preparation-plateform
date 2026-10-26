@@ -1,0 +1,29 @@
+.button {
+    border: none;
+    outline: none;
+    padding-inline: 1.5rem;
+    padding-block: 0.75rem;
+    border-radius: 0.6rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.875rem;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+
+    &.primary-button {
+        background: linear-gradient(135deg, #ff2d78 0%, #d20d3d 100%);
+        color: white;
+
+        &:hover {
+            opacity: 0.92;
+            box-shadow: 0 4px 14px rgba(255, 45, 120, 0.35);
+        }
+    }
+
+    &:active {
+        transform: scale(0.97);
+    }
+}
