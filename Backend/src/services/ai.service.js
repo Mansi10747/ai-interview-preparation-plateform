@@ -364,7 +364,7 @@ const browser = await puppeteer.launch({
 });
 
     const page = await browser.newPage();
-    await page.setContent(htmlContent, { waitUntil: "networkidle0" });
+    await page.setContent(htmlContent, { waitUntil: "domcontentloaded", timeout: 60000 });
 
     const pdfBuffer = await page.pdf({
         format: "A4",
