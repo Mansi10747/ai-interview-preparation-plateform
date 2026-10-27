@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../style/interview.scss";
 import { useInterview } from '../hooks/useInterview.js';
@@ -196,6 +196,13 @@ const RoadMapDay = ({ day }) => (
 // ── Main Component ────────────────────────────────────────────────────────────
 const Interview = () => {
     const [ activeNav, setActiveNav ] = useState('technical');
+    const contentRef = useRef(null);
+
+useEffect(() => {
+    if (contentRef.current) {
+        contentRef.current.scrollTop = 0;
+    }
+}, [activeNav]);
     const [ expandAllTech, setExpandAllTech ] = useState(false);
     const [ expandAllBeh, setExpandAllBeh ] = useState(false);
     const [ downloadingResume, setDownloadingResume ] = useState(false);
@@ -291,7 +298,7 @@ const Interview = () => {
                 <div className='interview-divider' />
 
                 {/* ── Center Content ── */}
-                <main className='interview-content'>
+               <main className='interview-content' ref={contentRef}>
                     <div className='interview-header-banner'>
                         <span className='role-badge'>Target Role</span>
                         <h1 className='role-title'>{report.title || "Software Engineer"}</h1>
