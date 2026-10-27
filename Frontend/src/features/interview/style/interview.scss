@@ -25,9 +25,9 @@ $severity-low: #3fb950;
 .interview-page {
     width: 100%;
     height: 100vh;
-    background-color: #0d1117;
-    color: #e6edf3;
-    font-family: system-ui, sans-serif;
+    background-color: $bg-page;
+    color: $text-primary;
+    font-family: $font-stack;
     display: flex;
     align-items: stretch;
     padding: 1.5rem;
@@ -42,8 +42,8 @@ $severity-low: #3fb950;
     min-height: 0;
     max-width: 1280px;
     margin: 0 auto;
-    background-color: #161b22;
-    border: 1px solid #2a3348;
+    background-color: $bg-card;
+    border: 1px solid $border-color;
     border-radius: 1rem;
     justify-content: space-between;
     overflow: hidden;
@@ -152,8 +152,8 @@ $severity-low: #3fb950;
     min-height: 0;
     height: 100%;
     max-height: none;
-    padding-bottom: 5rem;
     box-sizing: border-box;
+    padding-bottom: 5rem;
 
     section {
         width: 100%;
