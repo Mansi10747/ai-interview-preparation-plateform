@@ -72,8 +72,9 @@ export const useInterview = () => {
         }
         catch (error) {
             console.log(error)
-        } finally{
-             setLoading(false)
+        } finally {
+            setLoading(false)
+        }
     }
 
     useEffect(() => {
