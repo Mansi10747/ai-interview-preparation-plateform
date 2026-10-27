@@ -308,6 +308,12 @@ console.log(
 );
 
 const aiData = JSON.parse(responseText);
+        console.log("[AI Debug] Field types:", {
+    technicalQuestions: Array.isArray(aiData.technicalQuestions),
+    behavioralQuestions: Array.isArray(aiData.behavioralQuestions),
+    skillGaps: Array.isArray(aiData.skillGaps),
+    preparationPlan: Array.isArray(aiData.preparationPlan),
+});
 
         return {
             matchScore: aiData.matchScore || aiData.match_score || 85,
