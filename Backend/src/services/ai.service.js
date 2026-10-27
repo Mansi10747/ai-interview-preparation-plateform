@@ -300,7 +300,14 @@ async function generateInterviewReport({ resume, selfDescription, jobDescription
         });
 
         console.log("[AI Service] Gemini response received!");
-        const aiData = JSON.parse(response.text);
+
+const responseText = response.text;
+console.log(
+    "[AI Service] Gemini response length:",
+    responseText?.length ?? 0
+);
+
+const aiData = JSON.parse(responseText);
 
         return {
             matchScore: aiData.matchScore || aiData.match_score || 85,
