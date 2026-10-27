@@ -59,7 +59,7 @@ export const useInterview = () => {
     }
 
     const getResumePdf = async (interviewReportId) => {
-        setLoading(true)
+       
         let response = null
         try {
             response = await generateResumePdf({ interviewReportId })
@@ -72,9 +72,7 @@ export const useInterview = () => {
         }
         catch (error) {
             console.log(error)
-        } finally {
-            setLoading(false)
-        }
+        } 
     }
 
     useEffect(() => {
